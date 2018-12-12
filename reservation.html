@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -70,39 +70,39 @@
                             <h4 class="serif">Оставьте свое сообщение и мы свяжемся с вами!</h4>
                         </header>
 
-                        <form class="form ambiance-html-form" action="./php/reservations.php" method="post" id="reservation-form">
+                        <form class="form ambiance-html-form" action="api/external/reserve-table" method="post" id="reservation-form">
                             <div class="row">
                                 <div class="form-group">
-                                    <input name="name" id="name" type="text" placeholder="ФИО">
+                                    <input name="name" required id="name" type="text" placeholder="ФИО">
                                     <i class="icon icon-User"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input class="full-border" name="email" id="email" type="email" placeholder="Адрес электронной почты (email)">
+                                    <input class="full-border" required name="email" id="email" type="email" placeholder="Адрес электронной почты (email)">
                                     <i class="icon icon-Email"></i>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <input name="phone" id="phone" type="text" placeholder="Телефон">
+                                    <input name="phone" required id="phone" type="text" placeholder="Телефон">
                                     <i class="icon icon-Phone"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input name="seats" id="seats" type="text" placeholder="Количество мест">
+                                    <input name="seats" required id="seats" type="text" placeholder="Количество мест">
                                     <i class="icon icon-Users"></i>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <input name="date" id="date" type="text" placeholder="Дата">
+                                    <input name="date"  requiredid="date" type="text" placeholder="Дата">
                                     <i class="icon icon-Calendar"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input name="time" id="time" type="text" placeholder="Время">
+                                    <input name="time" required id="time" type="text" placeholder="Время">
                                     <i class="icon icon-Clock"></i>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea rows="4" name="requests" id="requests" placeholder="Сообщение"></textarea>
+                                <textarea rows="4" name="message" id="requests" placeholder="Сообщение"></textarea>
                                 <i class="icon icon-Typing"></i>
                             </div>
                             <span class="message"><strong>Информация.</strong> Пожелания</span>
@@ -115,7 +115,7 @@
                     </section>
                 </section>
             </div>
-            <div data-remodal-id="modal">
+            <div data-remodal-id="reservation-form">
                 <i class="icon bg icon-CommentwithLines"></i>
                 <button data-remodal-action="close" class="remodal-close"></button>
                 <h1>Спасибо!</h1>

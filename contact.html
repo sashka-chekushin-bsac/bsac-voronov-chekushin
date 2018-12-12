@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -145,16 +145,20 @@
                         </header>
                         <p>Если у вас есть какие-то вопросы, пожалуйста, заполните и отправьте нам эту форму! Мы
                             клянемся ответить как можно скорее!</p>
-                        <form action="./php/contact.php" method="post" id="contact-form" class="form ambiance-html-form">
+                        <form action="api/external/contact-us" method="post" id="contact-form" class="form ambiance-html-form">
                             <div class="row">
                                 <div class="form-group">
-                                    <input name="name" id="name" type="text" placeholder="ФИО">
+                                    <input name="name" id="name" type="text" required placeholder="ФИО">
                                     <i class="icon icon-User"></i>
                                 </div>
                                 <div class="form-group">
-                                    <input class="full-border" name="email" id="email" type="email" placeholder="Адрес электронной почты (email)">
+                                    <input class="full-border" name="email" required id="email" type="email" placeholder="Адрес электронной почты (email)">
                                     <i class="icon icon-Email"></i>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <input name="phone" class="message" id="phone" type="text" required placeholder="Телефон">
+                                <i class="icon icon-Phone"></i>
                             </div>
                             <div class="form-group">
                                 <textarea rows="10" cols="40" required="required" name="message" id="body" placeholder="Сообщение"></textarea>
@@ -170,7 +174,7 @@
                     </section>
                 </section>
             </div>
-            <div data-remodal-id="modal">
+            <div data-remodal-id="contact-form">
                 <i class="icon bg icon-CommentwithLines"></i>
                 <button data-remodal-action="close" class="remodal-close"></button>
                 <h1>Спасибо!</h1>

@@ -11,7 +11,7 @@
 
 (function ($) {
 
-    $('document').ready(function() {
+    $('document').ready(function () {
 
         /* use strict */
         'use strict';
@@ -22,10 +22,10 @@
         /* Throttle resizehandler (better performance) */
         var throttle;
 
-        $(window).on('resize', function() {
+        $(window).on('resize', function () {
 
             clearTimeout(throttle);
-            throttle = setTimeout(function() {
+            throttle = setTimeout(function () {
                 App.resizeHandler();
             }, 100);
 
@@ -42,13 +42,13 @@
         slideShow: null,
         modal: null,
 
-        init: function() {
+        init: function () {
 
             /* Strict mode */
             'use strict';
 
             /* History fallback for < ie10 */
-            if (! App.detectCssFeature('transition')) {
+            if (!App.detectCssFeature('transition')) {
                 var location = window.history.location || window.location;
             }
 
@@ -77,21 +77,21 @@
             }
         },
 
-        splash: function() {
+        splash: function () {
             /* Handles the splash animation */
-            var splash  = $('#splash'),
-                line    = $('.line', '#splash'),
-                logo    = $('.splash-logo', '#splash'),
-                main    = $('main', '#wrapper');
-            
+            var splash = $('#splash'),
+                line = $('.line', '#splash'),
+                logo = $('.splash-logo', '#splash'),
+                main = $('main', '#wrapper');
+
             logo.addClass('visible');
             main.addClass('splash-transition');
 
-            line.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
+            line.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
                 splash.addClass('slide-from-top-in');
                 main.addClass('splash-transition-out');
 
-                main.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
+                main.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function () {
                     main
                         .removeClass('splash-transition-out splash-transition')
                         .unbind();
@@ -102,21 +102,21 @@
 
         },
 
-        displayPage: function(ctx, next) {
+        displayPage: function (ctx, next) {
 
             $.ajax({
                 type: 'GET',
                 url: ctx.path,
                 cache: true,
 
-                success:function(result){
+                success: function (result) {
 
-                    var body                = $(result),
-                        previous            = $('main', '#wrapper'),
-                        main                = body.find('main'),
-                        previousTransition  = previous.data('transition'),
-                        supportsTransition  = App.detectCssFeature('transition'),
-                        wrapper             = $('#wrapper');
+                    var body = $(result),
+                        previous = $('main', '#wrapper'),
+                        main = body.find('main'),
+                        previousTransition = previous.data('transition'),
+                        supportsTransition = App.detectCssFeature('transition'),
+                        wrapper = $('#wrapper');
 
                     if (ctx.init) {
                         /* Activates the javascript for the current page */
@@ -133,10 +133,10 @@
 
                             main.addClass(App.transition + ' ' + App.transition + '-in');
 
-                            if (! App.touch) {
+                            if (!App.touch) {
                                 // hide scrollbar on desktop
                                 main.css({
-                                    'overflow' : 'hidden'
+                                    'overflow': 'hidden'
                                 });
 
                                 // Hide nav scrollbars on desktop
@@ -144,19 +144,19 @@
 
                                 if (strokes.length > 0) {
                                     strokes.css({
-                                       'overflow' : 'hidden'
+                                        'overflow': 'hidden'
                                     });
                                 }
                             }
 
                             wrapper.prepend(main);
 
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 previous.addClass(App.transition + ' ' + App.transition + '-out');
 
-                                if (! App.touch) {
+                                if (!App.touch) {
                                     previous.css({
-                                        'overflow' : 'hidden'
+                                        'overflow': 'hidden'
                                     });
                                 }
 
@@ -167,12 +167,12 @@
 
                             var transitionCompleted = false;
 
-                            main.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                            main.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function () {
                                 transitionCompleted = true;
                                 transitionComplete();
                             });
 
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 // fallback if transitionEnd
                                 if (transitionCompleted == false) {
                                     transitionComplete();
@@ -186,18 +186,18 @@
                             App.activatePage();
                         }
 
-                        function transitionComplete(){
+                        function transitionComplete() {
                             previous.remove();
                             App.activatePage();
                             main
-                                .css({'overflow-y' : 'scroll'})
+                                .css({ 'overflow-y': 'scroll' })
                                 .unbind();
                             next();
                         }
                     }
                 },
-                error:function (data){
-                    if(data.status == 404) {
+                error: function (data) {
+                    if (data.status == 404) {
                         // Handle 404
                         App.activatePage();
                     }
@@ -205,7 +205,7 @@
             });
         },
 
-        activatePage: function() {
+        activatePage: function () {
 
             /* Trigger event to tell the page has been activated */
             $('body').trigger('pageActivated');
@@ -225,7 +225,7 @@
             }
 
             /* Transition action */
-            $('a', '#wrapper').on('click', function(e) {
+            $('a', '#wrapper').on('click', function (e) {
 
                 var $el = $(this);
 
@@ -245,7 +245,7 @@
                 }
 
                 /* If IE catch click and call page.js */
-                if (! App.detectCssFeature('transition')) {
+                if (!App.detectCssFeature('transition')) {
                     var link = $el.attr('href');
                     e.preventDefault();
                     page.show(link);
@@ -266,50 +266,48 @@
             }
         },
 
-        initForms : function()
-        {
-            $('.ambiance-html-form', '#wrapper').submit(function(e){
+        initForms: function () {
+            $('.ambiance-html-form', '#wrapper').submit(function (e) {
                 e.preventDefault();
 
-                var $form   = $(this);
-                var data    = $form.serialize();
-                var method  = $form.attr('method');
-                var action  = $form.attr('action');
+                var $form = $(this);
+                var data = $form.serialize();
+                var method = $form.attr('method');
+                var action = $form.attr('action');
 
                 $.ajax({
-                    'url':      action,
-                    'method':   method,
-                    'data':     data,
-                    'cache':    false,
-                    'dataType': 'json',
-                    'success':  function(e){
+                    'url': action,
+                    'method': method,
+                    'data': data,
+                    'cache': false,
+                    'success': function (e) {
 
                         $form.find('.message').html(e.message);
-                        if (e.success == true) {
-                            $form.find('input[type=text], input[type=email], textarea').val('');
-                            App.initModal();
-                        }
+                        $form.find('input[type=text], input[type=email], textarea').val('');
+                        App.initModal("[data-remodal-id=" + $form.attr("id") + "]");
+                    },
+                    'error': function (e) {
+                        if (e.responseJSON)
+                            $form.find('.message').html(e.responseJSON.Message || "Ошибка валидации!");
                     }
                 });
             });
         },
 
-        initModal : function()
-        {
+        initModal: function (id) {
             /* Disable hashtracking for the modals */
-            App.modal = $('[data-remodal-id=modal]').remodal({
-                'hashTracking' : false
+            App.modal = $(id || '[data-remodal-id=modal]').remodal({
+                'hashTracking': true
             });
 
             App.modal.open();
         },
 
-        initPhotoswipe: function($el)
-        {
+        initPhotoswipe: function ($el) {
             var galleryItems = [];
             var itemIndex = 0;
 
-            $('.gallery-item').each(function(index){
+            $('.gallery-item').each(function (index) {
                 var $item = $(this);
                 var url = $item.attr('href');
 
@@ -319,9 +317,9 @@
 
                     if (1 > 0) {
                         galleryItems.push({
-                            'src' : url,
-                            'w' : w,
-                            'h' : h
+                            'src': url,
+                            'w': w,
+                            'h': h
                         });
 
                         if ($item.is($el)) {
@@ -333,20 +331,20 @@
 
             if (galleryItems.length > 0) {
                 var options = {
-                    index : itemIndex,
+                    index: itemIndex,
                     bgOpacity: 1,
                     history: false
                 };
 
                 var pswpElement = $('.pswp').get(0);
-                var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, galleryItems, options);
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, galleryItems, options);
                 gallery.init();
             }
         },
 
-        background: function() {
+        background: function () {
             /* Background handler, checks if a touch device and plays video / slideShow. */
-            if (! device.desktop()) {
+            if (!device.desktop()) {
                 App.slideShow();
             } else {
                 if (App.video) {
@@ -354,7 +352,7 @@
                     * This can be a youtube or vimeo videoId
                     * */
                     $('main', '#wrapper').backgroundvideo({
-                        'videoId' : App.video
+                        'videoId': App.video
                     });
                 } else {
                     /* Else load slideShow */
@@ -363,13 +361,13 @@
             }
         },
 
-        slideShow: function() {
+        slideShow: function () {
             /* fullscreen background slideShow */
-            this.slideShow         = $('#slideshow');
-            this.slideShowIndex    = 0;
+            this.slideShow = $('#slideshow');
+            this.slideShowIndex = 0;
 
-            var _this               = this,
-                slidesShowLength    = this.slideShow.length;
+            var _this = this,
+                slidesShowLength = this.slideShow.length;
 
             if (slidesShowLength > 0) {
 
@@ -378,8 +376,8 @@
                 for (var i = 0; i < items.length; i++) {
 
                     /* Extract images from list items */
-                    var item    = $(items[i]),
-                        image   = item
+                    var item = $(items[i]),
+                        image = item
                             .find('img')
                             .attr('src');
 
@@ -388,8 +386,8 @@
 
                     /* Add image to item */
                     item.css({
-                        'background-image' : 'url(' + image + ')',
-                        'display' : 'none'
+                        'background-image': 'url(' + image + ')',
+                        'display': 'none'
                     })
                 }
 
@@ -400,28 +398,28 @@
 
                     if (next != null) {
                         next.css({
-                            'display' : 'block',
-                            'opacity' : 1
+                            'display': 'block',
+                            'opacity': 1
                         });
                     }
                 }
             }
         },
 
-        showSlide: function() {
+        showSlide: function () {
 
             /* Show the images */
-            var _this               = App,
-                next                = _this.slideShow.find('li:eq(' + _this.slideShowIndex + ')'),
-                supportsAnimation   = _this.detectCssFeature('animation');
+            var _this = App,
+                next = _this.slideShow.find('li:eq(' + _this.slideShowIndex + ')'),
+                supportsAnimation = _this.detectCssFeature('animation');
 
             _this.slideShow
                 .children()
                 .css('z-index', 0);
 
-            next.css({'z-index' : 1, 'display' : 'block'});
+            next.css({ 'z-index': 1, 'display': 'block' });
 
-             if (supportsAnimation) {
+            if (supportsAnimation) {
                 next.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
                     next.unbind();
                     next.removeClass('visible');
@@ -430,23 +428,23 @@
                 next.addClass('visible');
                 setTimeout(_this.showSlide, 7000);
 
-             } else {
+            } else {
 
-                 next.fadeTo(1000, 1);
-                 setTimeout(_this.showSlide, 6000);
-                 setTimeout(function(){
-                     next.css('opacity', 0)
-                 }, 7000);
-             }
+                next.fadeTo(1000, 1);
+                setTimeout(_this.showSlide, 6000);
+                setTimeout(function () {
+                    next.css('opacity', 0)
+                }, 7000);
+            }
 
-            if (_this.slideShowIndex == _this.slideShowImages.length -1) {
+            if (_this.slideShowIndex == _this.slideShowImages.length - 1) {
                 _this.slideShowIndex = 0;
             } else {
-                _this.slideShowIndex ++;
+                _this.slideShowIndex++;
             }
         },
 
-        detectCssFeature: function(featurename) {
+        detectCssFeature: function (featurename) {
 
             /* Mixin to detect css features of browser */
             var feature = false,
@@ -455,12 +453,12 @@
                 featurenameCapital = null;
 
             featurename = featurename.toLowerCase();
-            if( elm.style[featurename] !== undefined ) { feature = true; }
+            if (elm.style[featurename] !== undefined) { feature = true; }
 
-            if( feature === false ) {
+            if (feature === false) {
                 featurenameCapital = featurename.charAt(0).toUpperCase() + featurename.substr(1);
-                for( var i = 0; i < domPrefixes.length; i++ ) {
-                    if( elm.style[domPrefixes[i] + featurenameCapital ] !== undefined ) {
+                for (var i = 0; i < domPrefixes.length; i++) {
+                    if (elm.style[domPrefixes[i] + featurenameCapital] !== undefined) {
                         feature = true;
                         break;
                     }
@@ -469,14 +467,14 @@
             return feature;
         },
 
-        resizeHandler: function() {
+        resizeHandler: function () {
 
             var $window = $(window),
                 navigation = $('#navigation');
 
             /* On resizing reset or set the navigation */
             if (navigation.length > 0 && $window.width() < 950) {
-                navigation.css({'left' : '0'});
+                navigation.css({ 'left': '0' });
                 navigation.unbind('mousemove');
 
             } else {
@@ -492,13 +490,13 @@
                 var timeout,
                     activeBackground = $('#slideShow > .visible');
 
-                $window.on('resize', function() {
+                $window.on('resize', function () {
                     /* Ios background scroll fix */
                     if (timeout) {
                         clearTimeout(timeout);
                     }
 
-                    timeout = setTimeout(function() {
+                    timeout = setTimeout(function () {
                         activeBackground.height($window.height() + 60);
                     }, 100);
                 });
